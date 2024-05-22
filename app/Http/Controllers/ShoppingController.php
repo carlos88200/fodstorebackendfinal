@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Shopping;
 use Illuminate\Http\Request;
+use App\Models\Food;
+
 
 class ShoppingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $userId)
     {
         //
-        $Shopping = Shopping::all();
+        
+        $Shopping = Shopping::where('IdUserFK', $userId)->with('food')->get();
         return $Shopping;
     }
 

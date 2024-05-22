@@ -36,8 +36,8 @@ Route::middleware('auth:api')->get('/Userauth', [UserAuthenticationController::c
 //food
 Route::get('/foodIndex', [FoodController::class, 'index']);//
 Route::get('/food/{id}', [FoodController::class, 'show']);//
-
-Route::post('/foodStore', [FoodController::class, 'store']);//
+Route::post('/foodStore', [FoodController::class, 'store']);
+//Route::post('/foodStore', [FoodController::class, 'store']);//
 Route::put('/FoodUpdate/{id}', [FoodController::class, 'update']);//
 Route::post('FoodDestroy/{id}',[FoodController::class, 'destroy']);//
 //foodGroup
@@ -53,13 +53,14 @@ Route::post('/FavoriteDestroy/{id}', [FavoriteController::class, 'destroy']);//
 Route::post('/Favorite', [FavoriteController::class, 'show']);//
 Route::get('/showfav/{userId}', [FavoriteController::class, 'showfav']);
 //shopping
-Route::get('/ShoppingIndex', [ShoppingController::class, 'index']);//
+Route::get('/ShoppingIndex/{id}', [ShoppingController::class, 'index']);//
 Route::post('/ShoppingStore', [ShoppingController::class, 'store']);//
 Route::post('/ShoppingUpdate/{id}', [ShoppingController::class, 'update']);//
 Route::post('/ShoppingDestroy/{id}', [ShoppingController::class, 'destroy']);//
 
 Route::get('/carr/{userId}', [CarController::class, 'showCarr']);
-
+Route::post('/storecar', [CarController::class, 'store']);
+Route::post('/destroycar/{id}', [CarController::class, 'destroy']);
 
 
 

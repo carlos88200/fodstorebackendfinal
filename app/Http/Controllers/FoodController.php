@@ -29,21 +29,43 @@ class FoodController extends Controller
                 'Description' => 'required',
                 'Price' => 'required',
                 'idFoodGroupFK' => 'required',
-                'Image' => 'required'
+                'Image' => 'required|max:20240'
             ]);
             if ($request->hasFile('Image')) {
-                $imagePath = $request->file('Image')->store('resources/Images', 'public');
-                $food = food::create([
-                    'Name' => $request->Name,
-                    'Description' => $request->Description,
-                    'Price' => $request->Price,
-                    'idFoodGroupFK' => $request->idFoodGroupFK,
-                    'Image' => $imagePath
-                ]);
-
+                
+                
+                     $customFileName = 'mi_archivo_personalizado.' . $request->file('Image')->getClientOriginalExtension();
+                    $imagePath = $request->file('Image')->store('', 'public');
+                    $food = food::create([
+                        'Name'=> $request->Name,
+                        'Description'=> $request->Description,
+                        'Price'=> $request->Price,
+                        'idFoodGroupFK'=> $request->idFoodGroupFK,
+                        'Image' => $imagePath
+                    ]);
+                
                 return response()->json(["success" => 'Product stored: ' . $food], 200);
-            }
-        } catch (Exception $e) {
+                
+           
+
+        }else{
+            $customFileName = 'mi_archivo_personalizado.' . $request->file('Image')->getClientOriginalExtension();
+            $imagePath = $request->file('Image')->store('', 'public');
+            $food = food::create([
+                'Name'=> $request->Name,
+                'Description'=> $request->Description,
+                'Price'=> $request->Price,
+                'idFoodGroupFK'=> $request->idFoodGroupFK,
+                'Image' => $imagePath
+            ]);
+        
+         return response()->json(["success" => 'Product stored: ' . $food], 200);
+
+        }
+
+        return response()->json(["ño" => 'Product stored: ' ], 200);
+
+        }catch(Exception $e){
             return response()->json(['error' => 'An error occurred when trying to store: ' . $e->getMessage()], 500);
         }
     }
